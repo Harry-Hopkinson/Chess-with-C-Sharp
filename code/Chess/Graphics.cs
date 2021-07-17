@@ -19,11 +19,14 @@ namespace Chess
             LoadGraphics();   
         }
 
+        /// <summary>
+        /// Load the graphices only once into a dictionary for quicker drawing
+        /// </summary>
         private void LoadGraphics()
         {
             TurnIndicator = new Dictionary<Player, Image>();
-            TurnIndicator[Player.WHITE] = Bitmap.FromFile(data_dir + "turn_w.png");
-            TurnIndicator[Player.BLACK] = Bitmap.FromFile(data_dir + "turn_b.png");
+            TurnIndicator[Player.WHITE] = Bitmap.FromFile(assets + "turn_w.png");
+            TurnIndicator[Player.BLACK] = Bitmap.FromFile(assets + "turn_b.png");
 
             Pieces = new Dictionary<Player, Dictionary<Piece, Image>>();
             foreach (Player pl in Enum.GetValues(typeof(Player)))

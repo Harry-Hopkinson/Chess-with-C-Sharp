@@ -72,6 +72,11 @@ namespace Chess
             Kings[Player.WHITE] = new position_t(copy.Kings[Player.WHITE]);
         }
 
+        /// <summary>
+        /// Calculate and return the boards fitness value.
+        /// </summary>
+        /// <param name="max">Who's side are we viewing from.</param>
+        /// <returns>The board fitness value, what else?</returns>
         public int fitness(Player max)
         {
             int fitness = 0;
@@ -80,6 +85,7 @@ namespace Chess
             int blackMoves = 0;
             int whiteMoves = 0;
 
+            // sum up the number of moves and pieces
             foreach (position_t pos in Pieces[Player.BLACK])
             {
                 blackMoves += LegalMoveSet.getLegalMove(this, pos).Count;
@@ -93,17 +99,21 @@ namespace Chess
                 whitePieces[(int)Grid[pos.number][pos.letter].piece]++;
             }
 
+            // if viewing from black side
             if (max == Player.BLACK)
             {
+                // apply weighting to piece counts
                 for (int i = 0; i < 6; i++)
                 {
                     fitness += pieceWeights[i] * (blackPieces[i] - whitePieces[i]);
                 }
 
+                // apply move value
                 fitness += (int)(0.5 * (blackMoves - whiteMoves));
             }
             else
             {
+                // apply weighting to piece counts
                 for (int i = 0; i < 6; i++)
                 {
                     fitness += pieceWeights[i] * (whitePieces[i] - blackPieces[i]);

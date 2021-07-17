@@ -15,9 +15,9 @@ namespace Chess
 
         public static move_t MiniMaxAB(ChessBoard board, Player turn)
         {
-            RUNNING = true;
-            STOP = false;
-            MAX = turn;
+            RUNNING = true; // we've started running
+            STOP = false; // no interupt command sent
+            MAX = turn; // who is maximizing
 
             // gather all possible moves
             Dictionary<position_t, List<position_t>> moves = LegalMoveSet.getPlayerMoves(board, turn);
@@ -42,17 +42,17 @@ namespace Chess
                 // for each move for the current piece(thread)
                 foreach (position_t move in movelist.Value)
                 {
-                    if (STOP)
+                    if (STOP) // interupt
                     {
                         state.Stop();
                         return;
                     }
 
-                    
+                    // make initial move and start recursion
                     ChessBoard b2 = LegalMoveSet.move(board, new move_t(movelist.Key, move));
                     int result = mimaab(b2, (turn == Player.WHITE) ? Player.BLACK : Player.WHITE, 1, Int32.MinValue, Int32.MaxValue);
 
-                    
+                    // if result is better or best hasn't been set yet
                     if (bestresults[index] < result || (bestmoves[index].to.Equals(new position_t(-1, -1)) && bestresults[index] == int.MinValue))
                     {
                         bestresults[index] = result;
@@ -62,9 +62,11 @@ namespace Chess
                 }
             });
 
+            // interupted
             if (STOP)
                 return new move_t(new position_t(-1, -1), new position_t(-1, -1)); 
 
+            // find the best of the thread results
             int best = int.MinValue;
             move_t m = new move_t(new position_t(-1, -1), new position_t(-1, -1));
             for(int i = 0; i < bestmoves.Length; i++)
@@ -80,6 +82,7 @@ namespace Chess
 
         private static int mimaab(ChessBoard board, Player turn, int depth, int alpha, int beta)
         {
+            // base case, at maximum depth return board fitness
             if (depth >= DEPTH)
                 return board.fitness(MAX);
             else

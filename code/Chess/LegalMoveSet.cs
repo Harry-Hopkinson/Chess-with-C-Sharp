@@ -8,7 +8,12 @@ namespace Chess
 {
     public class LegalMoveSet
     {        
-   
+        /// <summary>
+        /// Performs all necessary steps to update the game state and move the pieces.
+        /// </summary>
+        /// <param name="b">The state of the game.</param>
+        /// <param name="m">The desired move.</param>
+        /// <returns>The new state of the game.</returns>
         public static ChessBoard move(ChessBoard b, move_t m)
         {
             // create a copy of the board
@@ -419,8 +424,7 @@ namespace Chess
             return moves;
         }
 
-        private static List<position_t> 
-            (ChessBoard board, position_t pos, bool verify_check = true)
+        private static List<position_t> Knight(ChessBoard board, position_t pos, bool verify_check = true)
         {
             List<position_t> moves = new List<position_t>();
 
