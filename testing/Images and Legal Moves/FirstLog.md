@@ -1,0 +1,1 @@
+Captures are shown in Red while Normal Moves are shown in Yellow. Want to change some of the images to a lichess.org or chess.com style theme as the ones I am currently using too confusiong and hard to destinguish which piece is what.

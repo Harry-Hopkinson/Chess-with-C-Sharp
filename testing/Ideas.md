@@ -1,0 +1,1 @@
+I can maybe incoperate stockfish into the Engine to provide a scale of weak and stronger engine which is also quick.
