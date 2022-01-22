@@ -18,7 +18,6 @@ namespace Chess
 
             LoadGraphics();   
         }
-
         /// <summary>
         /// Load the graphices only once into a dictionary for quicker drawing
         /// </summary>
